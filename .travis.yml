@@ -1,0 +1,8 @@
+language: csharp
+solution: ./CZip/CZip.sln
+install:
+  - nuget restore ./Vatsim.NET/Vatsim.NET.sln
+  - nuget install NUnit.ConsoleRunner
+script:
+  - xbuild /p:Configuration=Release ./CZip/CZip.sln
+- mono ./NUnit.ConsoleRunner.3.6.1/tools/nunit3-console.exe ./Vatsim.NET/Vatsim.NET.Test/bin/Release/netcoreapp1.1/Vatsim.NET.Test.dll
