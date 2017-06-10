@@ -6,4 +6,4 @@ solution: ./Vatsim.NET.sln
 script:
   - dotnet restore
   - dotnet build --configuration Release
-  - dotnet test ./Vatsim.NET.Test/Vatsim.NET.Test.csproj
+  - dotnet test ./Vatsim.NET.Test/Vatsim.NET.Test.csproj --no-build
