@@ -19,4 +19,10 @@
     <ProjectReference Include="..\Vatsim.NET\Vatsim.NET.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="VatsimDataTestData\FullTestData.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

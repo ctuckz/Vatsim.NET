@@ -43,6 +43,8 @@ namespace Vatsim.NET
                                 .Where(s => !s.StartsWith(CommentCharacter)).ToArray();
 
             _general = loadGeneralData(dataLines);
+
+            _lastRefresh = DateTime.UtcNow;
         }
 
         private static GeneralData loadGeneralData(string[] dataLines)
@@ -61,20 +63,33 @@ namespace Vatsim.NET
                 throw new Exception("Could not find General section in data feed.");
             }
 
-            string version = getGeneralLineValue(dataLines[++pos]);
-            string reload = getGeneralLineValue(dataLines[++pos]);
-            string update = getGeneralLineValue(dataLines[++pos]);
-            string atisRefresh = getGeneralLineValue(dataLines[++pos]);
-            string numConnectedClients = getGeneralLineValue(dataLines[++pos]);
+            // We could use the property name as keys, but there's no heirarchy to the data, so we have no idea where the line is coming from. Just because a line starts with
+            // 'VERSION =' doesn't mean it's the version field of the general section. IMO it's safer to assume that the properties are always in the same order
+            // and just access them by line index. This is why JSON is a thing.
+            string version = getGeneralLineValue(dataLines, ++pos);
+            string reload = getGeneralLineValue(dataLines, ++pos);
+            string update = getGeneralLineValue(dataLines, ++pos);
+            string atisRefresh = getGeneralLineValue(dataLines, ++pos);
+            string numConnectedClients = getGeneralLineValue(dataLines, ++pos);
 
-            GeneralData general = new GeneralData(version, DateTime.UtcNow.AddMinutes(Convert.ToDouble(reload)),
-                DateTime.ParseExact(update, DateTimeFormat, CultureInfo.CurrentCulture.DateTimeFormat), Convert.ToInt32(atisRefresh), Convert.ToInt32(numConnectedClients));
+            DateTime reloadUtc = !string.IsNullOrWhiteSpace(reload) ? DateTime.UtcNow.AddMinutes(Convert.ToDouble(reload)) : DateTime.MinValue;
+            DateTime updateUtc = !string.IsNullOrWhiteSpace(update) ? DateTime.ParseExact(update, DateTimeFormat, CultureInfo.CurrentCulture.DateTimeFormat) : DateTime.MinValue;
+
+            GeneralData general = new GeneralData(version, reloadUtc, updateUtc, 
+                !string.IsNullOrWhiteSpace(atisRefresh) ? Convert.ToInt32(atisRefresh) : 0, 
+                !string.IsNullOrWhiteSpace(numConnectedClients) ? Convert.ToInt32(numConnectedClients) : 0);
 
             return general;
         }
 
-        private static string getGeneralLineValue(string line)
+        private static string getGeneralLineValue(string[] lines, int pos)
         {
+            if(pos >= lines.Length)
+            {
+                return string.Empty;
+            }
+
+            string line = lines[pos];
             // Line format is: PropertyName = Value
             if (string.IsNullOrWhiteSpace(line))
             {
