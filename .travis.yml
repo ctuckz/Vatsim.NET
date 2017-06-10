@@ -3,11 +3,7 @@ mono: none
 dotnet: 1.0.4
 dist: trusty
 solution: ./Vatsim.NET.sln
-install:
-  - nuget restore ./Vatsim.NET.sln
-  - nuget install NUnit.ConsoleRunner
 script:
   - dotnet restore
   - dotnet build --configuration Release
   - dotnet test ./Vatsim.NET.Test/Vatsim.NET.Test.csproj
-  - mono ./NUnit.ConsoleRunner.3.6.1/tools/nunit3-console.exe ./Vatsim.NET.Test/bin/Release/netcoreapp1.1/Vatsim.NET.Test.dll
