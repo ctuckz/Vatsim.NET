@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vatsim.NET", "Vatsim.NET\Va
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vatsim.NET.Test", "Vatsim.NET.Test\Vatsim.NET.Test.csproj", "{9221BF36-4172-47A7-AF20-74D4373D657C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vatsim.NET.NUnitLiteRunner", "Vatsim.NET.NUnitLiteRunner\Vatsim.NET.NUnitLiteRunner.csproj", "{BB557581-4F2B-44A7-8DA1-5A16FF471B75}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{9221BF36-4172-47A7-AF20-74D4373D657C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9221BF36-4172-47A7-AF20-74D4373D657C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9221BF36-4172-47A7-AF20-74D4373D657C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BB557581-4F2B-44A7-8DA1-5A16FF471B75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BB557581-4F2B-44A7-8DA1-5A16FF471B75}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BB557581-4F2B-44A7-8DA1-5A16FF471B75}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BB557581-4F2B-44A7-8DA1-5A16FF471B75}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
