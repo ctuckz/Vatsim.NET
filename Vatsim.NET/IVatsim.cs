@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Vatsim.NET
 {
-    interface IVatsim
+    public interface IVatsim
     {
         string GetMETAR(string icaoCode);
         IReadOnlyList<string> GetMessages();
