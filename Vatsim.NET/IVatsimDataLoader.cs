@@ -7,6 +7,6 @@ namespace Vatsim.NET
 {
     internal interface IVatsimDataLoader
     {
-        Task<string> LoadData();
+        Task<string> LoadData(string dataUrl);
     }
 }

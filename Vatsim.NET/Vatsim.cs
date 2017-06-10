@@ -6,9 +6,10 @@ namespace Vatsim.NET
 {
     internal class Vatsim : IVatsim
     {
-        public Vatsim(IVatsimStatus status)
+        public Vatsim(IVatsimStatus status, IVatsimData data)
         {
             Status = status;
+            Data = data;
         }
 
         private IVatsimStatus Status { get; }
@@ -27,5 +28,7 @@ namespace Vatsim.NET
         {
             return Status.GetMessages();
         }
+
+        public IVatsimData Data { get; }
     }
 }

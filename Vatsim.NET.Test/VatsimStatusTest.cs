@@ -12,6 +12,7 @@ namespace Vatsim.NET.Test
     public class VatsimStatusTest
     {
         [Test]
+        [Category("EndToEnd")]
         public async Task LoadDataTest()
         {
             string[] expectedDataUrls = new[] { "http://info.vroute.net/vatsim-data.txt",
