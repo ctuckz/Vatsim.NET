@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Vatsim.NET
 {
@@ -8,10 +9,11 @@ namespace Vatsim.NET
     {
         private static IVatsim _vatsim;
 
-        public static IVatsim GetModule()
+        public static async Task<IVatsim> GetModule()
         {
             VatsimStatusLoader statusLoader = new VatsimStatusLoader();
             VatsimStatus status = new VatsimStatus(statusLoader);
+            await status.Initialize();
 
             VatsimDataLoader dataLoader = new VatsimDataLoader();
             VatsimData data = new VatsimData(dataLoader, status);
