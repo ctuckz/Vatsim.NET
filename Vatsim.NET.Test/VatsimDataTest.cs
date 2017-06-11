@@ -150,6 +150,49 @@ namespace Vatsim.NET.Test
             Assert.That(clients, Has.Count.EqualTo((await data.GetGeneralData()).NumConnectedClients));
         }
 
+        [Test]
+        public async Task Clients__ReadsPilotData()
+        {
+            VatsimData data = getMockData(File.ReadAllText(Path.Combine(TestDataDir, "FullTestData.txt")));
+
+            IReadOnlyList<ClientData> clients = await data.GetClientData();
+
+            Assert.That(clients, Is.Not.Null);
+
+            ClientData client = clients[0];
+            Assert.That(client.Pilot, Is.Not.Null);
+            Assert.That(client.Pilot.Callsign, Is.EqualTo("85663"));
+            Assert.That(client.Pilot.ClientID, Is.EqualTo(910794));
+            Assert.That(client.Pilot.ClientType, Is.EqualTo("PILOT"));
+            Assert.That(client.Pilot.Frequency, Is.EqualTo(0));
+            Assert.That(client.Pilot.LastAtisRecieved, Is.Null);
+            Assert.That(client.Pilot.LogOnTime, Is.EqualTo("20170610201201".ToDateTime()));
+            Assert.That(client.Pilot.Rating, Is.EqualTo("1"));
+            Assert.That(client.Pilot.RealName, Is.EqualTo("VASSILI GRAMOLIN USSS"));
+            Assert.That(client.Pilot.Server, Is.EqualTo("CZECH"));
+        }
+
+        [Test]
+        public async Task Clients__ReadsPositionData()
+        {
+            VatsimData data = getMockData(File.ReadAllText(Path.Combine(TestDataDir, "FullTestData.txt")));
+
+            IReadOnlyList<ClientData> clients = await data.GetClientData();
+
+            Assert.That(clients, Is.Not.Null);
+
+            ClientData client = clients[2];
+            Assert.That(client.Position, Is.Not.Null);
+            Assert.That(client.Position.AltimeterInHg, Is.EqualTo(29.88));
+            Assert.That(client.Position.AltimeterMb, Is.EqualTo(1011));
+            Assert.That(client.Position.Altitude, Is.EqualTo(10415));
+            Assert.That(client.Position.GroundSpeed, Is.EqualTo(274));
+            Assert.That(client.Position.Heading, Is.EqualTo(137));
+            Assert.That(client.Position.Latitude, Is.EqualTo(21.50482));
+            Assert.That(client.Position.Longitude, Is.EqualTo(-87.43398));
+            Assert.That(client.Position.Transponder, Is.EqualTo(502));
+        }
+
         private static VatsimData getMockData(string testData)
         {
             Mock<IVatsimStatus> status = new Mock<IVatsimStatus>(MockBehavior.Strict);

@@ -56,10 +56,10 @@ namespace Vatsim.NET
         public string Aircraft { get; set; }
         public int CruiseSpeed { get; set; }
         public string DepartureAirport { get; set; }
-        public int Altitude { get; set; }
+        public string Altitude { get; set; }
         public string ArrivalAirport { get; set; }
         public string FlightType { get; set; }
-        public DateTime? DepartureTime { get; set; }
+        public string DepartureTime { get; set; }
         public TimeSpan? EnRouteTime { get; set; }
         public TimeSpan? FuelEndurance { get; set; }
         public string AlternativeAirport { get; set; }

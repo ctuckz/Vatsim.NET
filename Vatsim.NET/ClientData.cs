@@ -89,10 +89,16 @@ namespace Vatsim.NET
         public string Aircraft { get; }
         public int CruiseSpeed { get; }
         public string DepartureAirport { get; }
-        public int Altitude { get; }
+        /// <summary>
+        /// Gets the planned altitude. May be in flight level format (i.e. FL360).
+        /// </summary>
+        public string Altitude { get; }
         public string ArrivalAirport { get; }
         public string FlightType { get; }
-        public DateTime? DepartureTime { get; }
+        /// <summary>
+        /// Gets the planned depature time, in UTC.
+        /// </summary>
+        public string DepartureTime { get; }
         public TimeSpan? EnRouteTime { get; }
         public TimeSpan? FuelEndurance { get; }
         public string AlternativeAirport { get; }

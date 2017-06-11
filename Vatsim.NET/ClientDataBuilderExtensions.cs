@@ -53,6 +53,29 @@ namespace Vatsim.NET
             };
             builder.Position = positionBuilder.Build();
 
+            FlightPlanBuilder flightPlanBuilder = new FlightPlanBuilder
+            {
+                Aircraft = fields[ClientFieldPositions["planned_aircraft"]],
+                AlternativeAirport = fields[ClientFieldPositions["planned_altairport"]],
+                Altitude = fields[ClientFieldPositions["planned_altitude"]],
+                ArrivalAirport = fields[ClientFieldPositions["planned_destairport"]],
+                CruiseSpeed = fields[ClientFieldPositions["planned_tascruise"]].ToInt(),
+                DepartureAirport = fields[ClientFieldPositions["planned_depairport"]],
+                DepartureTime = fields[ClientFieldPositions["planned_deptime"]],
+                FlightType = fields[ClientFieldPositions["planned_flighttype"]],
+                Remarks = fields[ClientFieldPositions["planned_remarks"]],
+                Route = fields[ClientFieldPositions["planned_route"]]
+            };
+            int enRouteHours = fields[ClientFieldPositions["planned_hrsenroute"]].ToInt();
+            int enRouteMins = fields[ClientFieldPositions["planned_minenroute"]].ToInt();
+            flightPlanBuilder.EnRouteTime = new TimeSpan(enRouteHours, enRouteMins, 0);
+
+            int enduranceHours = fields[ClientFieldPositions["planned_hrsfuel"]].ToInt();
+            int enduranceMins = fields[ClientFieldPositions["planned_minfuel"]].ToInt();
+            flightPlanBuilder.FuelEndurance = new TimeSpan(enduranceHours, enduranceMins, 0);
+
+            builder.FlightPlan = flightPlanBuilder.Build();
+
             return new ClientData(builder);
         }
     }
