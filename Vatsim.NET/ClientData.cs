@@ -6,7 +6,12 @@ namespace Vatsim.NET
 {
     public class ClientData
     {
-        internal ClientData() { }
+        internal ClientData(ClientDataBuilder builder)
+        {
+            Pilot = builder.Pilot;
+            Position = builder.Position;
+            FlightPlan = builder.FlightPlan;
+        }
 
         public Pilot Pilot { get; }
         public Position Position { get; }
@@ -15,7 +20,18 @@ namespace Vatsim.NET
 
     public class Pilot
     {
-        internal Pilot() { }
+        internal Pilot(PilotBuilder builder)
+        {
+            Callsign = builder.Callsign;
+            ClientID = builder.ClientID;
+            RealName = builder.RealName;
+            ClientType = builder.ClientType;
+            Frequency = builder.Frequency;
+            Server = builder.Server;
+            Rating = builder.Rating;
+            LastAtisRecieved = builder.LastAtisRecieved;
+            LogOnTime = builder.LogOnTime;
+        }
 
         public string Callsign { get; }
         public int ClientID { get; }
@@ -30,6 +46,18 @@ namespace Vatsim.NET
 
     public class Position
     {
+        internal Position(PositionBuilder builder)
+        {
+            Latitude = builder.Latitude;
+            Longitude = builder.Longitude;
+            Altitude = builder.Altitude;
+            GroundSpeed = builder.GroundSpeed;
+            Transponder = builder.Transponder;
+            Heading = builder.Heading;
+            AltimeterInHg = builder.AltimeterInHg;
+            AltimeterMb = builder.AltimeterMb;
+        }
+
         public decimal Latitude { get; }
         public decimal Longitude { get; }
         public int Altitude { get; }
@@ -42,11 +70,25 @@ namespace Vatsim.NET
 
     public class FlightPlan
     {
-        internal FlightPlan() { }
+        internal FlightPlan(FlightPlanBuilder builder)
+        {
+            Aircraft = builder.Aircraft;
+            CruiseSpeed = builder.CruiseSpeed;
+            DepartureAirport = builder.DepartureAirport;
+            Altitude = builder.Altitude;
+            ArrivalAirport = builder.ArrivalAirport;
+            FlightType = builder.FlightType;
+            DepartureTime = builder.DepartureTime;
+            EnRouteTime = builder.EnRouteTime;
+            FuelEndurance = builder.FuelEndurance;
+            AlternativeAirport = builder.AlternativeAirport;
+            Remarks = builder.Remarks;
+            Route = builder.Route;
+        }
 
         public string Aircraft { get; }
         public int CruiseSpeed { get; }
-        public string DepartureAirprot { get; }
+        public string DepartureAirport { get; }
         public int Altitude { get; }
         public string ArrivalAirport { get; }
         public string FlightType { get; }

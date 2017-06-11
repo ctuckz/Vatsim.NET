@@ -136,6 +136,20 @@ namespace Vatsim.NET.Test
             loader.Verify(l => l.LoadData(It.IsAny<string>()), Times.Exactly(2));
         }
 
+        [Test]
+        [Category("EndToEnd")]
+        public async Task Clients__LoadDataTest()
+        {
+            VatsimStatus status = new VatsimStatus(new VatsimStatusLoader());
+            await status.Initialize();
+            VatsimData data = new VatsimData(new VatsimDataLoader(), status);
+
+            IReadOnlyList<ClientData> clients = await data.GetClientData();
+
+            Assert.That(clients, Is.Not.Null);
+            Assert.That(clients, Has.Count.EqualTo((await data.GetGeneralData()).NumConnectedClients));
+        }
+
         private static VatsimData getMockData(string testData)
         {
             Mock<IVatsimStatus> status = new Mock<IVatsimStatus>(MockBehavior.Strict);

@@ -11,10 +11,13 @@ namespace Vatsim.NET
     {
         private DateTime _lastRefresh = DateTime.MinValue;
         private GeneralData _general;
+        private IReadOnlyList<ClientData> _clients;
 
-        private const string GeneralSectionHeader = "!GENERAL:";
+        private const string GeneralSectionHeader = SectionHeaderCharacter + "GENERAL:";
+        private const string ClientsSectionHeader = SectionHeaderCharacter + "CLIENTS:";
         private const string DateTimeFormat = "yyyyMMddHHmmss";
         private const string CommentCharacter = ";";
+        private const string SectionHeaderCharacter = "!";
 
         public VatsimData(IVatsimDataLoader loader, IVatsimStatus status)
         {
@@ -31,6 +34,12 @@ namespace Vatsim.NET
             return _general;
         }
 
+        public async Task<IReadOnlyList<ClientData>> GetClientData()
+        {
+            await refreshIfDataExpired();
+            return _clients;
+        }
+
         private async Task refreshIfDataExpired()
         {
             if (_lastRefresh < (_general?.ReloadUtc ?? DateTime.MinValue))
@@ -43,6 +52,7 @@ namespace Vatsim.NET
                                 .Where(s => !s.StartsWith(CommentCharacter)).ToArray();
 
             _general = loadGeneralData(dataLines);
+            _clients = loadClientData(dataLines);
 
             _lastRefresh = DateTime.UtcNow;
         }
@@ -52,7 +62,7 @@ namespace Vatsim.NET
             int pos;
             for (pos = 0; pos < dataLines.Length; pos++)
             {
-                if (dataLines[pos].Trim().Equals(GeneralSectionHeader))
+                if (string.Equals(dataLines[pos].Trim(), GeneralSectionHeader, StringComparison.Ordinal))
                 {
                     break;
                 }
@@ -102,6 +112,40 @@ namespace Vatsim.NET
                 return string.Empty;
             }
             return line.Substring(equalsPos + 1).Trim();
+        }
+
+        private static IReadOnlyList<ClientData> loadClientData(string[] dataLines)
+        {
+            int pos;
+            for(pos = 0; pos < dataLines.Length; pos++)
+            {
+                if (string.Equals(dataLines[pos].Trim(), ClientsSectionHeader, StringComparison.Ordinal))
+                {
+                    // Skip until the client section
+                    break;
+                }
+            }
+
+            if(pos == 0 || pos >= dataLines.Length - 1)
+            {
+                // We couldn't find a clients section, or it's empty
+                return new List<ClientData>().AsReadOnly();
+            }
+
+            List<ClientData> clients = new List<ClientData>();
+            for(int i = pos + 1; i < dataLines.Length; i++)
+            {
+                string line = dataLines[i];
+                if(line.StartsWith(SectionHeaderCharacter, StringComparison.Ordinal))
+                {
+                    // We've reached the end of the clients section
+                    break;
+                }
+
+                clients.Add(new ClientDataBuilder().BuildFromDataLine(line));
+            }
+
+            return clients.AsReadOnly();
         }
     }
 }
