@@ -6,22 +6,36 @@ namespace Vatsim.NET
 {
     internal class Vatsim : IVatsim
     {
-        public Vatsim(IVatsimStatus status, IVatsimData data)
+        public Vatsim(IVatsimStatus status, IVatsimData data, IMetarDataLoader metarLoader)
         {
             Status = status;
             Data = data;
+            MetarLoader = metarLoader;
         }
 
         private IVatsimStatus Status { get; }
+        private IMetarDataLoader MetarLoader { get; }
 
-        public string GetMETAR(string icaoCode)
+        public async Task<string> GetMETAR(string icaoCode)
         {
             if (string.IsNullOrWhiteSpace(icaoCode))
             {
                 throw new ArgumentNullException(nameof(icaoCode));
             }
 
-            return null;
+            Uri metarUrl = Status.GetMetarUrl();
+            if(metarUrl == null)
+            {
+                throw new Exception("METAR functionality is currently unavailable.");
+            }
+
+            string metar = await MetarLoader.LoadData(metarUrl.ToString(), icaoCode);
+            if(string.IsNullOrEmpty(metar) || metar.StartsWith("No METAR available for"))
+            {
+                throw new Exception($"METAR is unavailable for {icaoCode}");
+            }
+
+            return metar;
         }
 
         public IReadOnlyList<string> GetMessages()

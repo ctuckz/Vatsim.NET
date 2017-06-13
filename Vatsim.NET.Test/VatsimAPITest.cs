@@ -19,7 +19,7 @@ namespace Vatsim.NET.Test
 
             Assert.That(vatsim.Data, Is.Not.Null);
             Assert.That(vatsim.GetMessages(), Is.Not.Null);
-            //Assert.That(vatsim.GetMETAR("KCLE"), Is.Not.Null.Or.Empty);
+            Assert.That(await vatsim.GetMETAR("KCLE"), Is.Not.Null.Or.Empty);
         }
     }
 }

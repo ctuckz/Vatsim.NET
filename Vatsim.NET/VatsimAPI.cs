@@ -18,7 +18,9 @@ namespace Vatsim.NET
             VatsimDataLoader dataLoader = new VatsimDataLoader();
             VatsimData data = new VatsimData(dataLoader, status);
 
-            return _vatsim ?? (_vatsim = new Vatsim(status, data));
+            MetarDataLoader metarLoader = new MetarDataLoader();
+
+            return _vatsim ?? (_vatsim = new Vatsim(status, data, metarLoader));
         }
     }
 }
