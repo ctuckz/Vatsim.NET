@@ -2,6 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.6</TargetFramework>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Authors>Chris Tucker</Authors>
+    <Company />
+    <Description>Exposes the VATSIM API through a simple, easy to use object model.</Description>
+    <PackageReleaseNotes>- Initial Release
+- Retrieve connected clients
+-- Retrieve current aircraft position information
+-- Retrieve flightplan information
+- Get METARs</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
