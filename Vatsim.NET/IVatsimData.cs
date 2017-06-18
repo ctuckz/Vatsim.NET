@@ -8,5 +8,6 @@ namespace Vatsim.NET
     public interface IVatsimData
     {
         Task<GeneralData> GetGeneralData();
+        Task<IReadOnlyList<ClientData>> GetClientData();
     }
 }

@@ -11,6 +11,8 @@
 -- Retrieve current aircraft position information
 -- Retrieve flightplan information
 - Get METARs</PackageReleaseNotes>
+    <Version>1.0.1</Version>
+    <AssemblyVersion>1.0.2.0</AssemblyVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
