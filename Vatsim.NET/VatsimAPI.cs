@@ -5,10 +5,17 @@ using System.Threading.Tasks;
 
 namespace Vatsim.NET
 {
+    /// <summary>
+    /// Entry point of the API. Used to get an IVatsim instance.
+    /// </summary>
     public static class VatsimAPI
     {
         private static IVatsim _vatsim;
 
+        /// <summary>
+        /// Gets a new IVatsim instance.
+        /// </summary>
+        /// <returns>A new IVatsim instance.</returns>
         public static async Task<IVatsim> GetModule()
         {
             VatsimStatusLoader statusLoader = new VatsimStatusLoader();

@@ -4,6 +4,9 @@ using System.Text;
 
 namespace Vatsim.NET
 {
+    /// <summary>
+    /// General Vatsim data, not associated with any specific client.
+    /// </summary>
     public class GeneralData
     {
         internal GeneralData(string version, DateTime reloadUTC, DateTime lastUpdateUTC, int atisRefreshInterval, int numConnectedClients)
@@ -15,10 +18,14 @@ namespace Vatsim.NET
             NumConnectedClients = numConnectedClients;
         }
 
-        public string Version { get; }
-        public DateTime ReloadUtc { get; }
-        public DateTime LastUpdateUtc { get; }
-        public int AtisRefreshInterval { get; }
+        /// <summary>
+        /// The number of pilots currently connected to Vatsim.
+        /// </summary>
         public int NumConnectedClients { get; }
+
+        internal string Version { get; }
+        internal DateTime ReloadUtc { get; }
+        internal DateTime LastUpdateUtc { get; }
+        internal int AtisRefreshInterval { get; }
     }
 }

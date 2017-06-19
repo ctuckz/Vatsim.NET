@@ -11,12 +11,16 @@
 -- Retrieve current aircraft position information
 -- Retrieve flightplan information
 - Get METARs</PackageReleaseNotes>
-    <Version>1.0.1</Version>
-    <AssemblyVersion>1.0.2.0</AssemblyVersion>
+    <Version>1.0.3</Version>
+    <AssemblyVersion>1.0.3.0</AssemblyVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile></DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard1.5\Vatsim.NET.xml</DocumentationFile>
   </PropertyGroup>
 
 </Project>
