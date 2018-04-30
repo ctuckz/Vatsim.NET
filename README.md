@@ -3,6 +3,18 @@
 
 Master: [![Build Status](https://travis-ci.org/ctuckz/Vatsim.NET.svg?branch=master)](https://travis-ci.org/ctuckz/Vatsim.NET)
 
+## Distribution
+
+The Vatsim.NET libraries can be easily referenced in your project through [Nuget](https://www.nuget.org/packages/Vatsim.NET/). 
+
+__Visual Studio:__
+
+`Install-Package Vatsim.NET -Version 1.0.3`
+
+__.NET Core:__
+
+`dotnet add package Vatsim.NET --version 1.0.3`
+
 ## Usage
 Get an `IVatsim` instance by calling `VatsimAPI.GetModule()`. The methods off of `IVatsim` allow you to interact with the rest of the API.
 
